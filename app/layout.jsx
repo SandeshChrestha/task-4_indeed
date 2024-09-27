@@ -22,35 +22,6 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
-
-        {/* Main Content - Move this out of the <html> tag */}
-        <div className="py-20 px-20 ml-15">
-          {/* Headline */}
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Find great places to work
-          </h1>
-          {/* Subtext */}
-          <p className="text-lg text-gray-600 mb-6">
-            Get access to millions of company reviews
-          </p>
-
-          {/* Search Filter Section */}
-          <div className="flex items-center space-x-2 mb-4">
-            <input
-              type="text"
-              placeholder="Company name or job title"
-              className="border border-gray-300 rounded-lg py-2 px-4 w-full md:w-2/3"
-            />
-            <button className="bg-blue-600 text-white rounded-lg px-4 py-2">
-              Find Company
-            </button>
-          </div>
-
-          {/* Linkable Text */}
-          <p className="text-sm text-blue-600 underline">
-            Do you want to search for salaries?
-          </p>
-        </div>
       </body>
     </html>
   );
