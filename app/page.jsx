@@ -1,11 +1,57 @@
-"use client"; // This makes the component a Client Component
+"use client"; // Makes the component a Client Component
 
 import { useState } from 'react'; // Import useState hook from React
 import Image from 'next/image';   // Import Image for optimized image loading in Next.js
 import IndustryGrid from '../components/IndustryGrid'; // Import your IndustryGrid component
+import PopularCompanies from '../components/PopularCompanies';
+// Import your PopularCompanies component
+ // Import your PopularCompanies component
+
+const companies = [
+  "Barnes & Noble",
+  "UnitedHealth Group",
+  "Amazon Flex",
+  "Raising Cane's",
+  "United States Postal Service",
+  "Allied Universal",
+  "Boeing",
+  "Indeed",
+  "Burlington Stores"
+];
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false); // State to handle mobile menu toggle
+  const [searchQuery, setSearchQuery] = useState(''); // State for search query
+  const [submittedQuery, setSubmittedQuery] = useState(''); // State for final submitted search
+  const [autoCompleteResults, setAutoCompleteResults] = useState([]); // State for auto-complete suggestions
+  const [showSuggestions, setShowSuggestions] = useState(false); // State to toggle suggestions visibility
+
+  // Handle the search input change
+  const handleSearchChange = (e) => {
+    const input = e.target.value;
+    setSearchQuery(input);
+    if (input) {
+      const filteredSuggestions = companies.filter(company =>
+        company.toLowerCase().includes(input.toLowerCase())
+      );
+      setAutoCompleteResults(filteredSuggestions);
+      setShowSuggestions(true); // Show suggestions when typing
+    } else {
+      setShowSuggestions(false); // Hide suggestions if input is empty
+    }
+  };
+
+  // Handle selecting a suggestion
+  const handleSuggestionClick = (suggestion) => {
+    setSearchQuery(suggestion);
+    setShowSuggestions(false); // Hide suggestions when a suggestion is clicked
+  };
+
+  // Handle the search button click
+  const handleSearchClick = () => {
+    setSubmittedQuery(searchQuery); // Set the submitted query when the button is clicked
+    setShowSuggestions(false); // Hide suggestions after search
+  };
 
   return (
     <div>
@@ -97,38 +143,63 @@ export default function Page() {
       {/* Page Content */}
       <div className="py-20 px-10 mx-auto max-w-screen-lg">
         {/* Headline */}
-        <h1 className="text-5xl font-bold text-gray-900 mb-7 ">
+        <h1 className="text-5xl font-bold text-gray-900 mb-7">
           Find great places to work
         </h1>
 
         {/* Subtext */}
-        <p className="text-xl text-gray-600 mb-6 ">
+        <p className="text-xl text-gray-600 mb-6">
           Get access to millions of company reviews
         </p>
 
         {/* Title for Search Bar */}
-        <h2 className="text-lg font-semibold text-gray-700 ">
+        <h2 className="text-lg font-semibold text-gray-700">
           Company name or job title
         </h2>
 
         {/* Search Filter Section */}
         <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-5 mb-8">
-          <input
-            type="text"
-            className="border border-gray-300 rounded-lg py-2 px-4 w-full"
-          />
-          <button className="bg-blue-600 text-white rounded-lg px-4 py-2 min-w-[150px]">
+          <div className="relative w-full">
+            <input
+              type="text"
+              value={searchQuery} // Controlled input
+              onChange={handleSearchChange} // Update the state on change
+              placeholder="Search for a company..."
+              className="border border-gray-300 rounded-lg py-2 px-4 w-full"
+            />
+            {/* Auto-complete suggestions */}
+            {showSuggestions && autoCompleteResults.length > 0 && (
+              <ul className="absolute top-full left-0 w-full bg-white border border-gray-300 rounded-lg mt-1 z-10">
+                {autoCompleteResults.map((suggestion, index) => (
+                  <li
+                    key={index}
+                    onClick={() => handleSuggestionClick(suggestion)}
+                    className="py-2 px-4 cursor-pointer hover:bg-gray-200"
+                  >
+                    {suggestion}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+          <button 
+            onClick={handleSearchClick}  // Attach the onClick event
+            className="bg-blue-600 text-white rounded-lg px-4 py-2 min-w-[150px]"
+          >
             Find Company
           </button>
         </div>
 
         {/* Linkable Text */}
-        <p className="text-lg text-blue-600 underline  mt-4">
+        <p className="text-lg text-blue-600 underline mt-4">
           Do you want to search for salaries?
         </p>
 
-        {/* Render IndustryGrid component here */}
-        <IndustryGrid /> {/* This will display the IndustryGrid below the search bar */}
+        {/* Render IndustryGrid component */}
+        <IndustryGrid /> 
+
+        {/* Render PopularCompanies component with submittedQuery prop */}
+        <PopularCompanies searchQuery={submittedQuery} />
       </div>
     </div>
   );

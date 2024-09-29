@@ -5,32 +5,32 @@ import React, { useState } from 'react';
 const industries = [
     {
         name: "Aerospace & Defense",
-        icon: "/path/to/icon1.png", // Replace with actual icon paths
+        icon: "/spaceship.png", // Replace with actual icon paths
         link: "/aerospace-defense", // The URL to navigate to
     },
     {
         name: "Agriculture",
-        icon: "/path/to/icon2.png",
+        icon: "/agricultural.png",
         link: "/agriculture",
     },
     {
         name: "Arts, Entertainment & Recreation",
-        icon: "/path/to/icon3.png",
+        icon: "/art.png",
         link: "/arts-entertainment",
     },
     {
         name: "Construction, Repair & Maintenance Services",
-        icon: "/path/to/icon4.png",
+        icon: "construction.png",
         link: "/construction-repair",
     },
     {
         name: "Education",
-        icon: "/path/to/icon5.png",
+        icon: "/education.png",
         link: "/education",
     },
     {
         name: "Energy, Mining & Utilities",
-        icon: "/path/to/icon6.png",
+        icon: "/energy.png",
         link: "/energy-mining",
     },
     // Additional industries
@@ -94,6 +94,10 @@ export default function IndustryGrid() {
                     {showAll ? "See fewer industries" : "See all industries"}
                 </button>
             </div>
+            
         </div>
+        
+
     );
 }
+
