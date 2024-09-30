@@ -1,11 +1,11 @@
 "use client"; // Makes the component a Client Component
 
 import { useState } from 'react'; // Import useState hook from React
-import Image from 'next/image';   // Import Image for optimized image loading in Next.js
-import IndustryGrid from '../components/IndustryGrid'; // Import your IndustryGrid component
-import PopularCompanies from '../components/PopularCompanies';
-// Import your PopularCompanies component
- // Import your PopularCompanies component
+import IndustryGrid from '../components/IndustryGrid'; // Import IndustryGrid component
+import PopularCompanies from '../components/PopularCompanies'; // Import PopularCompanies component
+import CompareSection from '../components/CompareSection'; // Import CompareSection
+import Footer from '../components/Footer'; // Import Footer component
+import Image from 'next/image'; // Import Image for optimized image loading in Next.js
 
 const companies = [
   "Barnes & Noble",
@@ -22,7 +22,6 @@ const companies = [
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false); // State to handle mobile menu toggle
   const [searchQuery, setSearchQuery] = useState(''); // State for search query
-  const [submittedQuery, setSubmittedQuery] = useState(''); // State for final submitted search
   const [autoCompleteResults, setAutoCompleteResults] = useState([]); // State for auto-complete suggestions
   const [showSuggestions, setShowSuggestions] = useState(false); // State to toggle suggestions visibility
 
@@ -49,7 +48,6 @@ export default function Page() {
 
   // Handle the search button click
   const handleSearchClick = () => {
-    setSubmittedQuery(searchQuery); // Set the submitted query when the button is clicked
     setShowSuggestions(false); // Hide suggestions after search
   };
 
@@ -198,9 +196,15 @@ export default function Page() {
         {/* Render IndustryGrid component */}
         <IndustryGrid /> 
 
-        {/* Render PopularCompanies component with submittedQuery prop */}
-        <PopularCompanies searchQuery={submittedQuery} />
+        {/* Render PopularCompanies component with searchQuery prop */}
+        <PopularCompanies searchQuery={searchQuery} /> {/* Pass the current searchQuery here */}
+
+        {/* Render CompareSection component */}
+        <CompareSection /> 
       </div>
+
+      {/* Footer Component */}
+      <Footer /> {/* Add the Footer component here */}
     </div>
   );
 }

@@ -1,121 +1,135 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 
+const PopularCompanies = ({ searchQuery }) => {
+  // Your new companies list
+  const companies = [
+    {
+      name: 'Barnes & Noble',
+      logo: '/barnes_and_noble.png',
+      rating: 4,
+      reviews: '5,000',
+    },
+    {
+      name: 'UnitedHealth Group',
+      logo: '/unitedhealthgroup.png',
+      rating: 4.5,
+      reviews: '8,000',
+    },
+    {
+      name: 'Amazon Flex',
+      logo: '/amazon_flex.png',
+      rating: 4.2,
+      reviews: '10,500',
+    },
+    {
+      name: "Raising Cane's",
+      logo: '/raising_canes.png',
+      rating: 4.3,
+      reviews: '7,200',
+    },
+    {
+      name: 'United States Postal Service',
+      logo: '/usps.png',
+      rating: 3.8,
+      reviews: '20,000',
+    },
+    {
+      name: 'Allied Universal',
+      logo: '/allied_universal.png',
+      rating: 3.9,
+      reviews: '3,600',
+    },
+    {
+      name: 'Boeing',
+      logo: '/boeing.png',
+      rating: 4.0,
+      reviews: '15,000',
+    },
+    {
+      name: 'Indeed',
+      logo: '/indeed.png',
+      rating: 4.6,
+      reviews: '9,500',
+    },
+    {
+      name: 'Burlington Stores',
+      logo: '/burlington_stores.png',
+      rating: 4.1,
+      reviews: '12,000',
+    },
+  ];
 
-const companies = [
-    "Barnes & Noble",
-    "UnitedHealth Group",
-    "Amazon Flex",
-    "Raising Cane's",
-    "United States Postal Service",
-    "Allied Universal",
-    "Boeing",
-    "Indeed",
-    "Burlington Stores"
-];
+  // Filter companies based on the search query
+  const filteredCompanies = companies.filter(company =>
+    company.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
-export default function PopularCompanies({ searchQuery }) {
-    const [filteredCompanies, setFilteredCompanies] = useState(companies);
-
-    useEffect(() => {
-        if (searchQuery) {
-            setFilteredCompanies(
-                companies.filter(company =>
-                    company.toLowerCase().includes(searchQuery.toLowerCase())
-                )
-            );
-        } else {
-            setFilteredCompanies(companies);
-        }
-    }, [searchQuery]);
-
-    return (
-        <div className="mt-8 px-5 max-w-7xl mx-auto">
-            {/* Popular Companies Title */}
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">Popular Companies</h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {filteredCompanies.map((company, index) => (
-                    <div key={index} className="border p-4 rounded-md">
-                        <h3 className="text-lg font-bold">{company}</h3>
-                        <p className="text-sm">Salaries | Q&A | Open Jobs</p>
+  return (
+    <div className="py-10">
+      <div className="max-w-6xl mx-auto px-4">
+        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+          Popular companies
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredCompanies.length > 0 ? (
+            filteredCompanies.map((company, index) => (
+              <div
+                key={index}
+                className="flex items-center space-x-4 bg-white p-4 rounded-lg shadow-md"
+              >
+                <img
+                  src={company.logo}
+                  alt={company.name}
+                  className="w-16 h-16 rounded-full"
+                />
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-gray-800">
+                    {company.name}
+                  </h3>
+                  <div className="flex items-center space-x-2">
+                    <div className="flex text-purple-500">
+                      {Array.from({ length: 5 }, (_, i) => (
+                        <svg
+                          key={i}
+                          xmlns="http://www.w3.org/2000/svg"
+                          className={`h-5 w-5 ${
+                            i < company.rating
+                              ? 'text-purple-500'
+                              : 'text-gray-300'
+                          }`}
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                          stroke="none"
+                        >
+                          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                        </svg>
+                      ))}
                     </div>
-                ))}
-            </div>
-
-            {/* Horizontal Company Comparison Rectangles in a 2x2 Grid */}
-            <div className="mt-16 grid grid-cols-1 sm:grid-cols-2  gap-5">
-                {/* First Horizontal Comparison */}
-                <div className="border p-6 rounded-md flex justify-between  hover:shadow-lg transition duration-300  items-center">
-                    {/* First Company */}
-                    <div className="text-left">
-                        <h3 className="text-md font-bold">Barnes & Noble</h3>
-                        <p className="text-sm">3.8 <span className="text-purple-600">&#9733;</span></p>
-                        <p className="text-xs text-gray-600">6.7K reviews</p>
-                    </div>
-
-                    {/* VS */}
-                    <div className="text-lg font-bold">VS</div>
-
-                    {/* Second Company */}
-                    <div className="text-right">
-                        <h3 className="text-md  font-bold">Half Price Books</h3>
-                        <p className="text-sm">3.7 <span className="text-purple-600">&#9733;</span></p>
-                        <p className="text-xs text-gray-600">507 reviews</p>
-                    </div>
+                    <p className="text-sm text-blue-600">
+                      {company.reviews} reviews
+                    </p>
+                  </div>
+                  <div className="flex space-x-3 text-gray-500 text-sm mt-1">
+                    <a href="#" className="hover:text-gray-800">
+                      Salaries
+                    </a>
+                    <a href="#" className="hover:text-gray-800">
+                      Q&A
+                    </a>
+                    <a href="#" className="hover:text-gray-800">
+                      Open jobs
+                    </a>
+                  </div>
                 </div>
-
-                {/* Second Horizontal Comparison */}
-                <div className="border p-4 rounded-md flex justify-between   hover:shadow-lg transition duration-300 items-center">
-                    <div className="text-left">
-                        <h3 className="text-md font-bold">UnitedHealth Group</h3>
-                        <p className="text-sm">4.1 <span className="text-purple-600">&#9733;</span></p>
-                        <p className="text-xs text-gray-600">3.2K reviews</p>
-                    </div>
-
-                    <div className="text-lg font-bold">VS</div>
-
-                    <div className="text-right">
-                        <h3 className="text-md font-bold">Amazon Flex</h3>
-                        <p className="text-sm">4.0 <span className="text-purple-600">&#9733;</span></p>
-                        <p className="text-xs text-gray-600">12.5K reviews</p>
-                    </div>
-                </div>
-
-                {/* Third Horizontal Comparison */}
-                <div className="border p-4 rounded-md flex justify-between  hover:shadow-lg transition duration-300 items-center">
-                    <div className="text-left">
-                        <h3 className="text-md font-bold">Boeing</h3>
-                        <p className="text-sm">4.0 <span className="text-purple-600">&#9733;</span></p>
-                        <p className="text-xs text-gray-600">1.1K reviews</p>
-                    </div>
-
-                    <div className="text-lg font-bold">VS</div>
-
-                    <div className="text-right">
-                        <h3 className="text-md font-bold">Allied Universal</h3>
-                        <p className="text-sm">3.2 <span className="text-purple-600">&#9733;</span></p>
-                        <p className="text-xs text-gray-600">5.4K reviews</p>
-                    </div>
-                </div>
-
-                {/* Fourth Horizontal Comparison */}
-                <div className="border p-4 rounded-md flex justify-between  hover:shadow-lg transition duration-300 items-center">
-                    <div className="text-left">
-                        <h3 className="text-md font-bold">Raising Cane's</h3>
-                        <p className="text-sm">3.9 <span className="text-purple-600">&#9733;</span></p>
-                        <p className="text-xs text-gray-600">800 reviews</p>
-                    </div>
-
-                    <div className="text-lg font-bold">VS</div>
-
-                    <div className="text-right">
-                        <h3 className="text-md font-bold">Burlington Stores</h3>
-                        <p className="text-sm">3.5 <span className="text-purple-600">&#9733;</span></p>
-                        <p className="text-xs text-gray-600">1.2K reviews</p>
-                    </div>
-                </div>
-            </div>
-
+              </div>
+            ))
+          ) : (
+            <p className="text-center text-gray-500">No companies found</p>
+          )}
         </div>
-    );
-}
+      </div>
+    </div>
+  );
+};
+
+export default PopularCompanies;
