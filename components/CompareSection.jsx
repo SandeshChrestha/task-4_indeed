@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-
 const CompareSection = () => {
   const companies = [
     { name: 'Marshalls', logo: '/marshalls.png', rating: 3.6, reviews: '12.3K', vs: 'TJ Maxx', vsLogo: '/tjmaxx.png', vsRating: 3.6, vsReviews: '12.8K' },
@@ -22,8 +21,8 @@ const CompareSection = () => {
         <h2 className="text-3xl font-bold text-gray-800 mb-8">Compare working at</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {companies.map((company, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-md p-6 flex justify-between items-center">
-              <div className="flex items-center">
+            <div key={index} className="bg-white rounded-lg shadow-md p-6 flex flex-col sm:flex-row justify-between items-center">
+              <div className="flex items-center mb-4 sm:mb-0">
                 <img src={company.logo} alt={company.name} className="w-16 h-16 mr-4" />
                 <div>
                   <p className="text-lg font-bold text-gray-700">{company.name}</p>
@@ -42,10 +41,12 @@ const CompareSection = () => {
           ))}
         </div>
         {/* Rating Section */}
-        <div className="mt-12 bg-green-50  shadow-md p-8 flex items-center">
-          <img src="/rating-icon.png" alt="Rate your employer" className="w-10 h-10 mr-4" /> {/* Update with your icon path */}
-          <p className="text-xl font-semibold text-gray-700">Rate your recent employer:</p>
-          <div className="flex ml-auto">
+        <div className="mt-12 bg-green-50 shadow-md p-8 flex flex-col sm:flex-row items-center">
+          <div className="flex items-center">
+            <img src="/rating-icon.png" alt="Rate your employer" className="w-10 h-10 mr-4" />
+            <p className="text-xl font-semibold text-gray-700">Rate your recent employer:</p>
+          </div>
+          <div className="flex ml-auto mt-4 sm:mt-0">
             {[1, 2, 3, 4, 5].map((star) => (
               <svg
                 key={star}

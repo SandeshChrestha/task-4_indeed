@@ -5,55 +5,55 @@ const PopularCompanies = ({ searchQuery }) => {
   const companies = [
     {
       name: 'Barnes & Noble',
-      logo: '/barnes_and_noble.png',
+      logo: '/im1.png',
       rating: 4,
       reviews: '5,000',
     },
     {
       name: 'UnitedHealth Group',
-      logo: '/unitedhealthgroup.png',
+      logo: '/im2.png',
       rating: 4.5,
       reviews: '8,000',
     },
     {
       name: 'Amazon Flex',
-      logo: '/amazon_flex.png',
+      logo: '/im3.png',
       rating: 4.2,
       reviews: '10,500',
     },
     {
       name: "Raising Cane's",
-      logo: '/raising_canes.png',
+      logo: '/im4.png',
       rating: 4.3,
       reviews: '7,200',
     },
     {
       name: 'United States Postal Service',
-      logo: '/usps.png',
+      logo: '/im5.png',
       rating: 3.8,
       reviews: '20,000',
     },
     {
       name: 'Allied Universal',
-      logo: '/allied_universal.png',
+      logo: '/im6.png',
       rating: 3.9,
       reviews: '3,600',
     },
     {
       name: 'Boeing',
-      logo: '/boeing.png',
+      logo: '/im7.png',
       rating: 4.0,
       reviews: '15,000',
     },
     {
       name: 'Indeed',
-      logo: '/indeed.png',
+      logo: '/im8.png',
       rating: 4.6,
       reviews: '9,500',
     },
     {
       name: 'Burlington Stores',
-      logo: '/burlington_stores.png',
+      logo: '/im9.png',
       rating: 4.1,
       reviews: '12,000',
     },
@@ -92,11 +92,10 @@ const PopularCompanies = ({ searchQuery }) => {
                         <svg
                           key={i}
                           xmlns="http://www.w3.org/2000/svg"
-                          className={`h-5 w-5 ${
-                            i < company.rating
-                              ? 'text-purple-500'
-                              : 'text-gray-300'
-                          }`}
+                          className={`h-5 w-5 ${i < company.rating
+                            ? 'text-purple-500'
+                            : 'text-gray-300'
+                            }`}
                           fill="currentColor"
                           viewBox="0 0 24 24"
                           stroke="none"
